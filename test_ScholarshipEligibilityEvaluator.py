@@ -5,8 +5,8 @@ from ScholarshipEligibilityEvaluator import Status, evaluate_scholarship
 '''
 Equivalência de Classes (idade):
 - REJEITA (idade < 16)
-- MANUAL_REVIEW (16 < idade <= 17)
-- ACEITA (idade > 18)
+- MANUAL_REVIEW (16 <= idade <= 17)
+- ACEITA (idade >= 18)
 
 Testar: idade = 15, idade = 16, idade = 17, idade = 18
 Técnicas: Equivalence Partitioning Class e Boundary-Value Analysis
@@ -62,9 +62,11 @@ def test_sem_motivos_de_rejeicao_nem_revisao_deve_aceitar():
 
 '''
 Equivalência de Classes (gpa):
-- REJEITA (gpa < 6.0)
+- INVÁLIDO (gpa < 0.0)
+- REJEITA (0.0 <= gpa < 6.0)
 - MANUAL_REVIEW (6.0 <= gpa < 7.0)
-- ACEITA (idade >= 7.0)
+- ACEITA (7.0 <= idade <= 10.0)
+- INVÁLIDO (gpa > 10.0)
 
 Testar: gpa = 5.9, gpa = 6.0, gpa = 6.5, gpa = 7.0
 Técnicas: Equivalence Partitioning Class e Boundary-Value Analysis
@@ -108,9 +110,11 @@ def test_gpa_intermediario_deve_revisar():
 
 '''
 Equivalência de Classes (attendance_rate):
-- REJEITA (attendance_rate < 75.0)
+- INVÁLIDO (attendance_rate < 0.0)
+- REJEITA (0.0 <= attendance_rate < 75.0)
 - MANUAL_REVIEW (75.0 <= attendance_rate < 80.0)
-- ACEITA (attendance_rate >= 80.0)
+- ACEITA (80.0 <= attendance_rate <= 100.0)
+- INVÁLIDO (attendance_rate > 100.0)
 
 Testar: attendance_rate = 74.0, attendance_rate = 75.0, attendance_rate = 78.0, attendance_rate = 80.0
 Técnicas: Equivalence Partitioning Class e Boundary-Value Analysis
@@ -154,8 +158,8 @@ def test_attendance_rate_intermediario_deve_revisar():
 
 '''
 (has_required_courses):
-- REJEITA (missing has_required_courses)
-- ACEITA (possui has_required_courses)
+- REJEITA (as_required_courses == False)
+- ACEITA (has_required_courses == True)
 
 Testar: has_required_courses = False, has_required_courses = True
 Técnica: Logical and Decision coverage 
@@ -175,8 +179,8 @@ def test_falta_has_required_courses_deve_rejeitar():
 
 '''
 (disciplinary_record):
-- REJEITA (missing has_required_courses)
-- ACEITA (missing has_required_courses)
+- REJEITA (disciplinary_record == True)
+- ACEITA (disciplinary_record == False)
 
 Testar: disciplinary_record = True, disciplinary_record = False 
 Técnica: Logical and Decision coverage 
